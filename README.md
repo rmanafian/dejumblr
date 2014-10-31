@@ -1,1 +1,1 @@
-# Dejumblr: * Turn words into other words!*
+# Dejumblr: *Turn words into other words!*
