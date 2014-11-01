@@ -1,25 +1,21 @@
 import argparse
 
-# Combinations implementation "inspired" by itertools.combinations
-def combinations(iterable,r):
+# Function to generate all combinations based on a string
+# Not the most efficient, but easy to read and understand
+# Each letter in the string corresponds to a binary bit
+# So if the string is ABCD and the binary value is 0110
+# The resulting combination is BC
+# Runtime is O(2^n-1 * n)
+def combinations(string):
   res = []
+  fmtString = "{0:0" + str(len(string)) + "b}"
+  # Start at one to skip the combination
+  for i in range(1,2 ** len(string) - 1):
+    binaryArray = list(fmtString.format(i))
+    resultList = [string[j] for j in range(0,len(string)) if binaryArray[j] == '1']
+    res.append(''.join(resultList))
 
-  pool = tuple(iterable)
-  n = len(pool)
-  if r > n:
-    return
-  indices = range(r)
-  res.append(''.join([pool[i] for i in indices]))
-  while True:
-    for i in reversed(range(r)):
-      if indices[i] != i + n - r:
-        break
-    else:
-      return res
-    indices[i] += 1
-    for j in range(i+1,r):
-      indices[j] = indices[j-1] + 1
-    res.append(''.join([pool[i] for i in indices]))
+  return res
 
 def solve(jumbledWord):
   sortedInput = ''.join(sorted(jumbledWord))
@@ -40,14 +36,11 @@ def solve(jumbledWord):
       wordLookup[sortedWord] = [word]
     words.append(line.strip().lower())
 
-  #Skip the nC1 (single letter combinations) since they're basically useless
-  #Skip nCn because that will end up being equal to sortedInput
-  # This is O(n C n - 1 * n C n - 2 * ... * n C 2)*the cost of combinations
-  for i in range(2,len(sortedInput)):
-    for key in combinations(sortedInput,i):
-      key = ''.join(key)
-      if key in wordLookup:
-        res.extend(wordLookup[key])
+  for combination in combinations(sortedInput):
+    if len(combination) == 1:
+      continue
+    if combination in wordLookup:
+      res.extend(wordLookup[combination])
 
   res.extend(wordLookup[sortedInput])
 
