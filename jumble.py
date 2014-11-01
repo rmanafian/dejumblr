@@ -1,5 +1,4 @@
 import argparse
-import itertools
 
 # Combinations implementation "inspired" by itertools.combinations
 def combinations(iterable,r):
@@ -45,7 +44,7 @@ def solve(jumbledWord):
   #Skip nCn because that will end up being equal to sortedInput
   # This is O(n C n - 1 * n C n - 2 * ... * n C 2)*the cost of combinations
   for i in range(2,len(sortedInput)):
-    for key in itertools.combinations(sortedInput,i):
+    for key in combinations(sortedInput,i):
       key = ''.join(key)
       if key in wordLookup:
         res.extend(wordLookup[key])
