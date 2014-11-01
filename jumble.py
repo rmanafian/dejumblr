@@ -35,7 +35,8 @@ def solve(jumbledWord):
     word = line.strip().lower()
     sortedWord = ''.join(sorted(word))
     if sortedWord in wordLookup:
-      wordLookup[sortedWord].append(word)
+      if word not in wordLookup[sortedWord]:
+        wordLookup[sortedWord].append(word)
     else:
       wordLookup[sortedWord] = [word]
     words.append(line.strip().lower())
