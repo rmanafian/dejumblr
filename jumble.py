@@ -9,7 +9,7 @@ import argparse
 def combinations(string):
   res = []
   fmtString = "{0:0" + str(len(string)) + "b}"
-  # Start at one to skip the combination
+  # Start at one to skip the 'empty' combination
   for i in range(1,2 ** len(string) - 1):
     binaryArray = list(fmtString.format(i))
     resultList = [string[j] for j in range(0,len(string)) if binaryArray[j] == '1']
@@ -30,6 +30,7 @@ def solve(jumbledWord):
     word = line.strip().lower()
     sortedWord = ''.join(sorted(word))
     if sortedWord in wordLookup:
+      # Skip duplicates
       if word not in wordLookup[sortedWord]:
         wordLookup[sortedWord].append(word)
     else:
@@ -37,6 +38,7 @@ def solve(jumbledWord):
     words.append(line.strip().lower())
 
   for combination in combinations(sortedInput):
+    # Skip single letters because they're not very useful
     if len(combination) == 1:
       continue
     if combination in wordLookup:

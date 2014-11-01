@@ -42,10 +42,9 @@ def solve(jumbledWord):
 
   #Skip the nC1 (single letter combinations) since they're basically useless
   #Skip nCn because that will end up being equal to sortedInput
-  # This is O(n C n - 1 * n C n - 2 * ... * n C 2)*the cost of combinations
+  # This is O(n C n - 1 + n C n - 2 + ... + n C 2)*the cost of combinations
   for i in range(2,len(sortedInput)):
     for key in combinations(sortedInput,i):
-      key = ''.join(key)
       if key in wordLookup:
         res.extend(wordLookup[key])
 
