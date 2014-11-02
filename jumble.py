@@ -37,6 +37,8 @@ def solve(jumbledWord):
       wordLookup[sortedWord] = [word]
     words.append(line.strip().lower())
 
+  f.close()
+
   for combination in combinations(sortedInput):
     # Skip single letters because they're not very useful
     if len(combination) == 1:

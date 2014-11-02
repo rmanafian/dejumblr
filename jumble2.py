@@ -40,6 +40,8 @@ def solve(jumbledWord):
       wordLookup[sortedWord] = [word]
     words.append(line.strip().lower())
 
+  f.close()
+
   #Skip the nC1 (single letter combinations) since they're basically useless
   #Skip nCn because that will end up being equal to sortedInput
   # This is O(n C n - 1 + n C n - 2 + ... + n C 2)*the cost of combinations
