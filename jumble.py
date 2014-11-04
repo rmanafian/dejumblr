@@ -21,7 +21,6 @@ def solve(jumbledWord):
   sortedInput = ''.join(sorted(jumbledWord))
 
   f = open('words')
-  words = []
   wordLookup = {}
   res = []
 
@@ -35,7 +34,6 @@ def solve(jumbledWord):
         wordLookup[sortedWord].append(word)
     else:
       wordLookup[sortedWord] = [word]
-    words.append(line.strip().lower())
 
   f.close()
 
